@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Infinity Puzzles — Colección de Puzles Procedurales</title>
+  
+  <meta name="description" content="Colección minimalista de 11 puzles lógicos infinitos con generación procedimental garantizada. Mobile-first, offline y cero anuncios.">
+  <meta name="theme-color" content="#0a0b0e">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Infinity Puzzles">
+  
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="assets/icon.svg">
+  
+  <!-- Modern Geometric Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/games.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+  <!-- Ambient Atmospheric Glows -->
+  <div class="ambient-glow"></div>
+
+  <!-- App Container (Mobile-First 20:9 viewport frame) -->
+  <div id="app-container">
+
+    <!-- ==================== MENU VIEW ==================== -->
+    <section id="view-menu" class="view">
+      <header class="menu-header">
+        <div class="brand-wrapper">
+          <div class="brand-logo-icon">∞</div>
+          <div>
+            <h1 class="brand-title">INFINITY</h1>
+            <div class="brand-subtitle">Colección Lógica</div>
+          </div>
+        </div>
+        <div class="menu-actions">
+          <button id="btn-sound-toggle" class="icon-btn" aria-label="Alternar Sonido">🔊</button>
+          <button id="btn-haptic-toggle" class="icon-btn" aria-label="Alternar Háptica">📳</button>
+        </div>
+      </header>
+
+      <div class="menu-content">
+        <!-- Global Stats Card -->
+        <div class="stats-bar-card">
+          <div class="stat-item">
+            <span class="stat-val" id="total-solved-val">0</span>
+            <span class="stat-label">Completados</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-val" id="best-streak-val">0🔥</span>
+            <span class="stat-label">Mejor Racha</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-val">100%</span>
+            <span class="stat-label">Offline</span>
+          </div>
+        </div>
+
+        <div class="section-label">11 Juegos de Lógica Infinita</div>
+
+        <!-- 11 Puzzle Games Grid -->
+        <div class="games-grid" id="games-grid">
+          <!-- Dynamically populated by app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== GAME VIEW ==================== -->
+    <section id="view-game" class="view hidden">
+      <!-- Game Top Bar -->
+      <header class="game-header">
+        <button id="btn-back-menu" class="icon-btn" aria-label="Volver al menú">❮</button>
+        <div class="game-title-group">
+          <div class="game-title-text" id="game-title-text">Tap Away</div>
+          <button class="seed-badge" id="seed-badge" title="Toca para ingresar semilla">#SEED01</button>
+        </div>
+        <button id="btn-new-level" class="action-btn" title="Generar nuevo nivel procedimental">
+          <span>Nuevo</span> ❯
+        </button>
+      </header>
+
+      <!-- Subheader Controls -->
+      <div class="game-controls-bar">
+        <div class="difficulty-selector">
+          <button class="diff-btn" data-diff="easy">FÁCIL</button>
+          <button class="diff-btn active" data-diff="medium">MEDIO</button>
+          <button class="diff-btn" data-diff="hard">DIFÍCIL</button>
+        </div>
+
+        <div class="action-buttons-group">
+          <button id="btn-undo" class="action-btn" title="Deshacer último movimiento" disabled>
+            ↺ Deshacer
+          </button>
+          <button id="btn-restart" class="action-btn" title="Reiniciar nivel actual">
+            ↻ Reiniciar
+          </button>
+        </div>
+      </div>
+
+      <!-- Puzzle Interactive Area -->
+      <main id="game-play-area" class="game-play-area">
+        <!-- Puzzle engine mounts here -->
+      </main>
+
+      <!-- Bottom Stats Bar -->
+      <footer class="game-stats-bar">
+        <div class="live-stat">
+          <span>Movimientos:</span>
+          <strong id="live-moves-val">0</strong>
+        </div>
+        <div class="live-stat">
+          <span>Tiempo:</span>
+          <strong id="live-timer-val">0:00</strong>
+        </div>
+      </footer>
+    </section>
+
+    <!-- ==================== MODALS & CELEBRATION ==================== -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- Victory Modal -->
+    <div id="victory-modal" class="modal-overlay">
+      <div class="victory-card">
+        <div class="victory-badge">✓</div>
+        <h2 class="victory-title">¡Nivel Completado!</h2>
+        <div class="victory-subtitle">Solución perfecta alcanzada</div>
+
+        <div class="victory-stats-row">
+          <div class="v-stat-box">
+            <div class="v-label">Movimientos</div>
+            <div class="v-val" id="v-moves-val">12</div>
+          </div>
+          <div class="v-stat-box">
+            <div class="v-label">Tiempo</div>
+            <div class="v-val" id="v-time-val">0:35</div>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button id="btn-next-level" class="btn-primary">Siguiente Nivel ❯</button>
+          <button id="btn-victory-menu" class="btn-secondary">Volver al Menú</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Custom Seed Input Modal -->
+    <div id="seed-dialog-modal" class="modal-overlay">
+      <div class="seed-dialog-card">
+        <h3 class="victory-title" style="font-size: 18px;">Semilla del Nivel</h3>
+        <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">
+          Ingresa un código para cargar un nivel exacto o compartirlo con amigos.
+        </p>
+        <input type="text" id="custom-seed-input" class="seed-input" maxlength="10" placeholder="SEGURO1">
+        <div class="modal-actions">
+          <button id="btn-apply-seed" class="btn-primary">Cargar Nivel</button>
+          <button id="btn-close-seed" class="btn-secondary">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Main ES Module Script -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

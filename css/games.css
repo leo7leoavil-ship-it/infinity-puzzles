@@ -1,0 +1,851 @@
+/* ==========================================================================
+   INFINITY PUZZLES - Games Specific Styles
+   Touch-Optimized, 60fps GPU Accelerated Elements
+   ========================================================================== */
+
+.game-instruction {
+  width: 100%;
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 12px;
+  line-height: 1.4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* ==========================================================================
+   1. TAP AWAY
+   ========================================================================== */
+.tapaway-wrapper {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tapaway-board {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-size, 5), 1fr);
+  gap: 8px;
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--bg-surface);
+  padding: 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  touch-action: manipulation;
+}
+
+.tapaway-slot {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.02);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tapaway-block {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, #1e2433, #151824);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  color: var(--neon-cyan);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.25s ease;
+  touch-action: manipulation;
+}
+
+.tapaway-block:active {
+  transform: scale(0.92);
+}
+
+.tapaway-block .arrow-icon {
+  font-weight: 900;
+  text-shadow: 0 0 10px var(--neon-cyan-glow);
+}
+
+/* ==========================================================================
+   2. KRUSKAL PIPES
+   ========================================================================== */
+.pipes-wrapper {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pipes-board {
+  display: grid;
+  grid-template-columns: repeat(var(--pipes-cols, 5), 1fr);
+  grid-template-rows: repeat(var(--pipes-rows, 5), 1fr);
+  gap: 6px;
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--bg-surface);
+  padding: 10px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+}
+
+.pipe-tile {
+  background: #141722;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-sm);
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  aspect-ratio: 1;
+  transition: border-color 0.2s ease;
+  touch-action: manipulation;
+}
+
+.pipe-svg {
+  width: 82%;
+  height: 82%;
+  overflow: visible;
+}
+
+.pipe-node {
+  fill: #334155;
+  transition: fill 0.25s ease;
+}
+
+.pipe-arm {
+  fill: #334155;
+  transition: fill 0.25s ease, filter 0.25s ease;
+}
+
+.pipe-tile.powered .pipe-node {
+  fill: var(--neon-cyan);
+}
+
+.pipe-tile.powered .pipe-arm {
+  fill: var(--neon-cyan);
+  filter: drop-shadow(0 0 4px var(--neon-cyan));
+}
+
+.pipe-tile.is-source {
+  border-color: rgba(0, 240, 255, 0.4);
+}
+
+.pipe-tile.is-source .source-core {
+  fill: #ffffff;
+  filter: drop-shadow(0 0 8px var(--neon-cyan));
+}
+
+/* ==========================================================================
+   3. LIGHTS OUT
+   ========================================================================== */
+.lightsout-wrapper {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lightsout-board {
+  display: grid;
+  grid-template-columns: repeat(var(--lo-size, 5), 1fr);
+  gap: 8px;
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--bg-surface);
+  padding: 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+}
+
+.lo-cell {
+  background: #131620;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  aspect-ratio: 1;
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  touch-action: manipulation;
+}
+
+.lo-bulb {
+  width: 44%;
+  height: 44%;
+  border-radius: 50%;
+  background: #1e2433;
+  transition: all 0.2s ease;
+}
+
+.lo-cell.is-on {
+  background: rgba(0, 240, 255, 0.12);
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 16px var(--neon-cyan-glow), inset 0 0 10px rgba(0, 240, 255, 0.2);
+}
+
+.lo-cell.is-on .lo-bulb {
+  background: #ffffff;
+  box-shadow: 0 0 12px var(--neon-cyan), 0 0 20px var(--neon-cyan);
+}
+
+/* ==========================================================================
+   4. SLIDING BLOCK / KLOTSKI
+   ========================================================================== */
+.klotski-wrapper {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.klotski-board-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--bg-surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  overflow: hidden;
+  touch-action: none;
+}
+
+.klotski-board {
+  position: absolute;
+  inset: 0;
+}
+
+.klotski-exit-marker {
+  position: absolute;
+  right: 0;
+  background: rgba(244, 63, 94, 0.25);
+  border-left: 2px solid var(--neon-rose);
+  color: var(--neon-rose);
+  font-size: 10px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px;
+  pointer-events: none;
+  font-family: var(--font-mono);
+}
+
+.klotski-block {
+  position: absolute;
+  background: linear-gradient(135deg, #1e2436, #161a28);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  box-sizing: border-box;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  cursor: grab;
+  touch-action: none;
+  transition: transform 0.15s ease;
+}
+
+.klotski-block.dragging {
+  cursor: grabbing;
+  z-index: 10;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
+}
+
+.klotski-block.is-target {
+  background: linear-gradient(135deg, #f43f5e, #be123c);
+  border-color: #fda4af;
+  box-shadow: 0 0 15px rgba(244, 63, 94, 0.4);
+}
+
+/* ==========================================================================
+   5. FLOW FREE / PATH WEAVER
+   ========================================================================== */
+.flow-wrapper {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.flow-status-bar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  padding: 0 4px;
+}
+
+.flow-board-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--bg-surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  overflow: hidden;
+  touch-action: none;
+}
+
+#flow-canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.flow-board-grid {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(var(--flow-size, 6), 1fr);
+  grid-template-rows: repeat(var(--flow-size, 6), 1fr);
+  z-index: 2;
+  touch-action: none;
+}
+
+.flow-cell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.flow-endpoint {
+  width: 55%;
+  height: 55%;
+  border-radius: 50%;
+  z-index: 3;
+}
+
+/* ==========================================================================
+   6. SOKOBAN CLÁSICO
+   ========================================================================== */
+.sokoban-wrapper {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sokoban-board {
+  display: grid;
+  grid-template-columns: repeat(var(--soko-cols, 7), 1fr);
+  grid-template-rows: repeat(var(--soko-rows, 7), 1fr);
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--bg-surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  padding: 8px;
+  gap: 3px;
+  touch-action: manipulation;
+}
+
+.soko-cell {
+  position: relative;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.soko-cell.is-wall {
+  background: #1e2433;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.soko-cell.is-floor {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.soko-cell.is-goal .goal-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--neon-emerald);
+  box-shadow: 0 0 8px var(--neon-emerald);
+}
+
+.soko-box {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  transition: transform 0.15s ease;
+}
+
+.soko-box.on-goal {
+  filter: drop-shadow(0 0 8px var(--neon-emerald));
+}
+
+.soko-player {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  filter: drop-shadow(0 0 8px var(--neon-cyan));
+}
+
+/* Sokoban D-Pad */
+.sokoban-dpad {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.dpad-middle {
+  display: flex;
+  gap: 12px;
+}
+
+.dpad-btn {
+  width: 48px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.dpad-btn:active {
+  background: rgba(0, 240, 255, 0.2);
+  border-color: var(--neon-cyan);
+}
+
+/* ==========================================================================
+   7. BRIDGES (HASHIWOKAKERO)
+   ========================================================================== */
+.bridges-wrapper {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bridges-board-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--bg-surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  overflow: hidden;
+}
+
+#bridges-canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.bridges-islands-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.bridge-island {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #181d2a;
+  border: 2px solid var(--neon-cyan);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 0 10px var(--neon-cyan-glow);
+  transition: all 0.2s ease;
+  touch-action: manipulation;
+}
+
+.bridge-island.selected {
+  border-color: #ffffff;
+  box-shadow: 0 0 16px #ffffff;
+  transform: translate(-50%, -50%) scale(1.15);
+}
+
+.bridge-island.satisfied {
+  border-color: var(--neon-emerald);
+  box-shadow: 0 0 12px var(--neon-emerald);
+  color: var(--neon-emerald);
+}
+
+.bridge-island.over {
+  border-color: var(--neon-rose);
+  box-shadow: 0 0 12px var(--neon-rose);
+  color: var(--neon-rose);
+}
+
+/* ==========================================================================
+   8. PATTERN FOLD / UNROLL
+   ========================================================================== */
+.fold-wrapper {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fold-board {
+  display: grid;
+  grid-template-columns: repeat(var(--fold-size, 6), 1fr);
+  grid-template-rows: repeat(var(--fold-size, 6), 1fr);
+  gap: 6px;
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--bg-surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  padding: 10px;
+}
+
+.fold-cell {
+  position: relative;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fold-cell.is-target {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+}
+
+.fold-origin-block {
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #0b0c10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  touch-action: manipulation;
+}
+
+.fold-arrow {
+  font-size: 14px;
+}
+
+.fold-len {
+  font-size: 10px;
+  font-family: var(--font-mono);
+}
+
+.fold-segment {
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0b0c10;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* ==========================================================================
+   9. SLIDING TILE
+   ========================================================================== */
+.sliding-tile-wrapper {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mini-toggle-btn {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.mini-toggle-btn.active {
+  color: var(--neon-cyan);
+  border-color: var(--neon-cyan);
+}
+
+.sliding-tile-board {
+  display: grid;
+  grid-template-columns: repeat(var(--tile-size, 4), 1fr);
+  grid-template-rows: repeat(var(--tile-size, 4), 1fr);
+  gap: 6px;
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--bg-surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  padding: 10px;
+}
+
+.st-slot {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.st-tile {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  touch-action: manipulation;
+  transition: transform 0.15s ease;
+}
+
+.st-tile:active {
+  transform: scale(0.95);
+}
+
+.st-num {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 800;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+/* ==========================================================================
+   10. LASER & MIRRORS
+   ========================================================================== */
+.laser-wrapper {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.laser-board-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--bg-surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  overflow: hidden;
+}
+
+#laser-canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.laser-board-grid {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(var(--laser-cols, 7), 1fr);
+  grid-template-rows: repeat(var(--laser-rows, 7), 1fr);
+  z-index: 1;
+}
+
+.laser-cell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.laser-cell.is-emitter .emitter-core {
+  font-size: 18px;
+  color: var(--neon-rose);
+  filter: drop-shadow(0 0 8px var(--neon-rose));
+}
+
+.laser-cell.is-sensor .sensor-core {
+  font-size: 20px;
+  color: #64748b;
+  transition: all 0.2s ease;
+}
+
+.laser-cell.is-sensor.activated .sensor-core {
+  color: var(--neon-cyan);
+  filter: drop-shadow(0 0 10px var(--neon-cyan));
+  transform: scale(1.15);
+}
+
+.laser-mirror {
+  width: 78%;
+  height: 78%;
+  background: #1a1e2b;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
+}
+
+.mirror-surface {
+  position: absolute;
+  width: 85%;
+  height: 3px;
+  background: #00f0ff;
+  box-shadow: 0 0 8px var(--neon-cyan);
+  transition: transform 0.2s ease;
+}
+
+.laser-mirror.slash .mirror-surface {
+  transform: rotate(-45deg);
+}
+
+.laser-mirror.backslash .mirror-surface {
+  transform: rotate(45deg);
+}
+
+/* ==========================================================================
+   11. TETRIZ (BLOCK FIT)
+   ========================================================================== */
+.tetriz-wrapper {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tetriz-goal-banner {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--neon-cyan);
+  margin-bottom: 8px;
+}
+
+.tetriz-board {
+  display: grid;
+  grid-template-columns: repeat(var(--tetriz-size, 8), 1fr);
+  grid-template-rows: repeat(var(--tetriz-size, 8), 1fr);
+  gap: 3px;
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--bg-surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  padding: 8px;
+  touch-action: manipulation;
+}
+
+.tetriz-cell {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease;
+}
+
+.tetriz-cell.is-filled {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.tetriz-tray {
+  margin-top: 12px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 70px;
+  background: rgba(22, 26, 38, 0.4);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  padding: 8px;
+}
+
+.tetriz-tray-slot {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tetriz-tray-slot.is-selected {
+  border-color: var(--neon-cyan);
+  background: rgba(0, 240, 255, 0.1);
+  transform: scale(1.1);
+}
+
+.tetriz-piece {
+  display: grid;
+  grid-template-rows: repeat(var(--piece-rows, 2), 12px);
+  grid-template-columns: repeat(var(--piece-cols, 2), 12px);
+  gap: 2px;
+}
+
+.piece-block {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
